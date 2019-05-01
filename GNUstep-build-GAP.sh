@@ -23,10 +23,6 @@ PROMPT=true
 mkdir GNUstep-build-gap
 cd GNUstep-build-gap
 
-# Set clang as compiler
-export CC=clang-6.0
-export CXX=clang++-6.0
-
 # Checkout sources
 echo -e "\n\n${GREEN}Checking out sources...${NC}"
 git clone https://github.com/gnustep/libs-performance.git
@@ -37,6 +33,8 @@ git clone https://github.com/gnustep/gap.git
 showPrompt
 
 . /usr/GNUstep/System/Library/Makefiles/GNUstep.sh
+
+# Set clang as compiler and set linker flags
 export CC=clang-6.0
 export CXX=clang++-6.0
 export OBJCFLAGS="-fblocks -fobjc-runtime=gnustep-1.9"
