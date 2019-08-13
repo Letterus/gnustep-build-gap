@@ -79,7 +79,6 @@ echo -e "\n\n"
 echo -e "${GREEN}Building gap/libs before GAP...${NC}"
 cd ../gap/libs
 make clean
-./configure
 make -j8
 sudo -E make install
 
