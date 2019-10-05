@@ -3,7 +3,7 @@ Script to build the apps from the GNUstep Application Project (on Debian current
 
 Make sure you have a working GNUstep runtime before executing this script:
 
-https://github.com/Letterus/gnustep-build-ubuntu/tree/debian-9
+https://github.com/plaurent/gnustep-build
 
 After a successful build procedure you will find your apps at `/usr/GNUstep/Local/Applications/`. Have fun!
 
