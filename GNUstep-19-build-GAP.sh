@@ -1,8 +1,7 @@
 #!/bin/bash
 
-## Before executing this script make sure you have installed clang and the
-## GNUstep runtime 1.9, f.e. using https://github.com/plaurent/gnustep-build
-
+## Before executing this script make sure you have installed clang-6.0 and a
+## current GNUstep runtime, f.e. using https://github.com/Letterus/gnustep-build-ubuntu/tree/debian-9
 
 # Show prompt function
 function showPrompt()
@@ -33,19 +32,23 @@ git clone https://github.com/gnustep/gap.git
 
 showPrompt
 
-. /usr/GNUstep/System/Library/Makefiles/GNUstep.sh
-
 # Set clang as compiler and set linker flags
-export CC=clang
-export CXX=clang++
-export OBJCFLAGS="-fblocks -fobjc-runtime=gnustep-1.9"
-export LDFLAGS=-ldispatch
-export LD_LIBRARY_PATH="/usr/GNUstep/Local/Library/Libraries"
+export CC=clang-8
+export CXX=clang++-8
+export RUNTIME_VERSION=gnustep-1.9
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+export LD=/usr/bin/ld.gold
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin:/usr/GNUstep/Local/Library/Libraries/
+export LDFLAGS="-fuse-ld=/usr/bin/ld.gold -L/usr/local/lib -L/usr/GNUstep/Local/Library/Libraries/ -I/usr/local/include"
+export OBJCFLAGS="-fblocks"
+export PATH="/usr/GNUstep/System/Tools:/usr/GNUstep/Local/Tools:${PATH}"
+
+. /usr/GNUstep/System/Library/Makefiles/GNUstep.sh
 
 echo -e "\n\n"
 echo -e "${GREEN}Building libsperformance...${NC}"
 cd libs-performance
-make clean
+#make clean
 make -j8
 sudo -E make install
 
@@ -54,7 +57,7 @@ showPrompt
 echo -e "\n\n"
 echo -e "${GREEN}Building libs-webservices...${NC}"
 cd ../libs-webservices
-make clean
+#make clean
 ./configure --prefix=/usr
 make -j8
 sudo -E make install
@@ -64,30 +67,51 @@ showPrompt
 echo -e "\n\n"
 echo -e "${GREEN}Building libs-simplewebkit...${NC}"
 cd ../libs-simplewebkit
-make clean
+#make clean
 make -j8
 sudo -E make install
 
 showPrompt
 
-# These should be build before the apps
-# There are some issues currently
-# PDFKit needs to be build using root
-# PDFKit depends on freetype-config which has been superseeded by pkgconfig on debian buster (builds nonetheless
-# don't know if it works correctly, though.)
 echo -e "\n\n"
 echo -e "${GREEN}Building gap/libs before GAP...${NC}"
 cd ../gap/libs
-make clean
+
+#cd Berkelium
+#sudo -E make install
+cd DataBasinKit
+make -j8
+sudo -E make install
+
+cd ../netclasses
+./configure
+make -j8
+sudo -E make install
+
+cd ../Oresme/OresmeKit
+make -j8
+sudo -E make install
+
+cd ../../PDFKit
+./configure
+make -j8
+sudo -E make install
+
+cd ../RSSKit
+make -j8
+sudo -E make install
+
+cd ../timeui
 make -j8
 sudo -E make install
 
 showPrompt
 
+# FIXME: You have to remove libs dir from the makefile to make this work (apply patch)
 echo -e "\n\n"
 echo -e "${GREEN}Building apps from GNUstep Application Project (GAP)...${NC}"
-cd ..
-make clean
+cd ../
+#make clean
 make -j8
 sudo -E make install
 
