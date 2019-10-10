@@ -29,7 +29,15 @@ git clone https://github.com/gnustep/libs-performance.git
 git clone https://github.com/gnustep/libs-webservices.git
 git clone https://github.com/gnustep/libs-simplewebkit
 git clone https://github.com/gnustep/gap.git
-
+svn checkout https://svn.code.sf.net/p/price/code-svn/trunk price-code-svn
+git clone https://github.com/ericwa/TextEdit.git
+svn checkout http://svn.savannah.nongnu.org/svn/gnustep-nonfsf/frameworks/highlighterkit/ highlighterkit
+svn checkout http://svn.savannah.nongnu.org/svn/gnustep-nonfsf/apps/gemas/ gemas
+svn checkout http://svn.savannah.nongnu.org/svn/gnustep-nonfsf/frameworks/pantomime/ pantomime
+svn checkout http://svn.savannah.nongnu.org/svn/gnustep-nonfsf/apps/gnumail gnumail
+wget http://twilightedge.com/downloads/PikoPixel.Sources.1.0-b9e.tar.gz
+git clone https://github.com/libical/libical
+git clone https://github.com/poroussel/simpleagenda.git
 showPrompt
 
 # Set clang as compiler and set linker flags
@@ -38,7 +46,7 @@ export CXX=clang++-8
 export RUNTIME_VERSION=gnustep-1.9
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export LD=/usr/bin/ld.gold
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin:/usr/GNUstep/Local/Library/Libraries/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/GNUstep/Local/Library/Libraries/
 export LDFLAGS="-fuse-ld=/usr/bin/ld.gold -L/usr/local/lib -L/usr/GNUstep/Local/Library/Libraries/ -I/usr/local/include"
 export OBJCFLAGS="-fblocks"
 export PATH="/usr/GNUstep/System/Tools:/usr/GNUstep/Local/Tools:${PATH}"
@@ -112,6 +120,71 @@ echo -e "\n\n"
 echo -e "${GREEN}Building apps from GNUstep Application Project (GAP)...${NC}"
 cd ../
 #make clean
+make -j8
+sudo -E make install
+
+showPrompt
+
+echo -e "\n\n"
+echo -e "${GREEN}Building app PRICE from Sourceforge SVN...${NC}"
+cd ../price-code-svn
+make -j8
+sudo -E make install
+
+showPrompt
+
+echo -e "\n\n"
+echo -e "${GREEN}Building app TextEdit from GitHub...${NC}"
+cd ../TextEdit
+make -j8
+sudo -E make install
+
+showPrompt
+
+echo -e "\n\n"
+echo -e "${GREEN}Building Gemas von GNU Savannah SVN...${NC}"
+cd ../highlighterkit
+make -j8
+sudo -E make install
+
+cd ../gemas
+make -j8
+sudo -E make install
+
+showPrompt
+
+echo -e "\n\n"
+echo -e "${GREEN}Building GNUMail von GNU Savannah SVN...${NC}"
+cd ../pantomime
+make -j8
+sudo -E make install
+
+cd ../gnumail
+make -j8
+sudo -E make install
+
+showPrompt
+
+echo -e "\n\n"
+echo -e "${GREEN}Building PikoPixel from source tarball...${NC}"
+cd ..
+tar xzf PikoPixel.Sources.1.0-b9e.tar.gz
+cd PikoPixel.Sources.1.0-b9e/PikoPixel
+make -j8
+sudo -E make install
+
+showPrompt
+
+echo -e "\n\n"
+echo -e "${GREEN}Building libical and SimpleAgenda from GitHub...${NC}"
+cd ../../libical
+git checkout v0.48
+./configure --prefix=/usr/local
+make -j8
+sudo -E make install
+sudo ldconfig
+
+cd ../simpleagenda
 make -j8
 sudo -E make install
 
