@@ -87,29 +87,36 @@ cd ../gap/libs
 
 #cd Berkelium
 #sudo -E make install
+
 cd DataBasinKit
+#make clean
 make -j8
 sudo -E make install
 
 cd ../netclasses
+#make clean
 ./configure
 make -j8
 sudo -E make install
 
 cd ../Oresme/OresmeKit
+#make clean
 make -j8
 sudo -E make install
+cd ..
 
-cd ../../PDFKit
-./configure
-make -j8
-sudo -E make install
+#cd ../PDFKit
+#./configure
+#make -j8
+#sudo -E make install
 
 cd ../RSSKit
+#make clean
 make -j8
 sudo -E make install
 
 cd ../timeui
+#make clean
 make -j8
 sudo -E make install
 
@@ -118,16 +125,17 @@ showPrompt
 # FIXME: You have to remove libs dir from the makefile to make this work (apply patch)
 echo -e "\n\n"
 echo -e "${GREEN}Building apps from GNUstep Application Project (GAP)...${NC}"
-cd ../
+cd ../../
 #make clean
 make -j8
-sudo -E make install
+sudo -E make install PATH=$PATH:/usr/GNUstep/Local/Tools/
 
 showPrompt
 
 echo -e "\n\n"
 echo -e "${GREEN}Building app PRICE from Sourceforge SVN...${NC}"
 cd ../price-code-svn
+#make clean
 make -j8
 sudo -E make install
 
@@ -136,6 +144,7 @@ showPrompt
 echo -e "\n\n"
 echo -e "${GREEN}Building app TextEdit from GitHub...${NC}"
 cd ../TextEdit
+#make clean
 make -j8
 sudo -E make install
 
@@ -144,10 +153,12 @@ showPrompt
 echo -e "\n\n"
 echo -e "${GREEN}Building Gemas von GNU Savannah SVN...${NC}"
 cd ../highlighterkit
+#make clean
 make -j8
 sudo -E make install
 
 cd ../gemas
+#make clean
 make -j8
 sudo -E make install
 
@@ -156,10 +167,12 @@ showPrompt
 echo -e "\n\n"
 echo -e "${GREEN}Building GNUMail von GNU Savannah SVN...${NC}"
 cd ../pantomime
+#make clean
 make -j8
 sudo -E make install
 
 cd ../gnumail
+#make clean
 make -j8
 sudo -E make install
 
@@ -170,6 +183,7 @@ echo -e "${GREEN}Building PikoPixel from source tarball...${NC}"
 cd ..
 tar xzf PikoPixel.Sources.1.0-b9e.tar.gz
 cd PikoPixel.Sources.1.0-b9e/PikoPixel
+#make clean
 make -j8
 sudo -E make install
 
@@ -185,6 +199,7 @@ sudo -E make install
 sudo ldconfig
 
 cd ../simpleagenda
+#make clean
 make -j8
 sudo -E make install
 
