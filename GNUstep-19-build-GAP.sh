@@ -41,15 +41,15 @@ git clone https://github.com/poroussel/simpleagenda.git
 showPrompt
 
 # Set clang as compiler and set linker flags
-export CC=clang-8
-export CXX=clang++-8
-export RUNTIME_VERSION=gnustep-1.9
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-export LD=/usr/bin/ld.gold
+#export CC=clang
+#export CXX=clang++
+#export RUNTIME_VERSION=gnustep-2.0
+#export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+#export LD=/usr/bin/ld.gold
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/GNUstep/Local/Library/Libraries/
 export LDFLAGS="-fuse-ld=/usr/bin/ld.gold -L/usr/local/lib -L/usr/GNUstep/Local/Library/Libraries/ -I/usr/local/include"
 export OBJCFLAGS="-fblocks"
-export PATH="/usr/GNUstep/System/Tools:/usr/GNUstep/Local/Tools:${PATH}"
+export PATH=/usr/GNUstep/System/Tools:/usr/GNUstep/Local/Tools:${PATH}
 
 . /usr/GNUstep/System/Library/Makefiles/GNUstep.sh
 
